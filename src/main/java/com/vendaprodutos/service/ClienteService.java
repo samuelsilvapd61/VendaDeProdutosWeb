@@ -1,6 +1,9 @@
 package com.vendaprodutos.service;
 
 import com.vendaprodutos.domain.Cliente;
+import com.vendaprodutos.domain.dto.ClientePostDTO;
+import com.vendaprodutos.domain.dto.ClientePutDTO;
+import com.vendaprodutos.mapper.ClienteMapper;
 import com.vendaprodutos.repository.ClienteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +18,8 @@ public class ClienteService {
 
     private final ClienteRepository clienteRepository;
     @Transactional
-    public Cliente save(Cliente cliente) {
+    public Cliente save(ClientePostDTO clientePostDTO) {
+        Cliente cliente = ClienteMapper.INSTANCE.toClientePost(clientePostDTO);
         return clienteRepository.save(cliente);
     }
 
@@ -35,20 +39,11 @@ public class ClienteService {
         clienteRepository.delete(findById(id));
     }
 
-    public Cliente update(Cliente cliente) {
-        Cliente savedCliente = findById(cliente.getId());
-        Cliente clienteUpdate = Cliente.builder()
-                .id(savedCliente.getId())
-                .nomeCompleto(cliente.getNomeCompleto())
-                .cpf(cliente.getCpf())
-                .dataNascimento(cliente.getDataNascimento())
-                .genero(cliente.getGenero())
-                .email(cliente.getEmail())
-                .endereco(cliente.getEndereco())
-                .telefone(cliente.getTelefone())
-                .dataCadastro(savedCliente.getDataCadastro())
-                .build();
-
-        return clienteRepository.save(clienteUpdate);
+    public Cliente update(ClientePutDTO clientePutDTO) {
+        Cliente savedCliente = findById(clientePutDTO.getId());
+        Cliente cliente = ClienteMapper.INSTANCE.toCliente(clientePutDTO);
+        cliente.setId(savedCliente.getId()); // Garantir que o id está correto
+        cliente.setDataCadastro(savedCliente.getDataCadastro()); // Preencher a dataCadastro
+        return clienteRepository.save(cliente);
     }
 }
