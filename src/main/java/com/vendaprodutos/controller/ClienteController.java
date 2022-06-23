@@ -1,6 +1,8 @@
 package com.vendaprodutos.controller;
 
 import com.vendaprodutos.domain.Cliente;
+import com.vendaprodutos.domain.dto.ClientePostDTO;
+import com.vendaprodutos.domain.dto.ClientePutDTO;
 import com.vendaprodutos.service.ClienteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -23,12 +25,12 @@ public class ClienteController {
 
     /**
      * Insere um novo Cliente
-     * @param cliente
+     * @param clientePostDTO
      */
     @PostMapping
-    public ResponseEntity<Cliente> save(@RequestBody Cliente cliente) {
+    public ResponseEntity<Cliente> save(@RequestBody ClientePostDTO clientePostDTO) {
         //return new ResponseEntity<>(clienteService.save(cliente), HttpStatus.CREATED);
-        return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.save(cliente));
+        return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.save(clientePostDTO));
     }
 
     /**
@@ -61,15 +63,11 @@ public class ClienteController {
 
     /**
      * Altera um cliente por id
-     * @param id
-     * @param cliente
+     * @param clientePutDTO
      */
-    @PutMapping(path = "/{id}")
-    public ResponseEntity<Cliente> updateById(@PathVariable long id, @RequestBody Cliente cliente) {
-        cliente.setId(id);
-        clienteService.update(cliente);
-        //return ResponseEntity.noContent().build();
-        return ResponseEntity.ok(clienteService.update(cliente));
+    @PutMapping
+    public ResponseEntity<Cliente> updateById(@RequestBody ClientePutDTO clientePutDTO) {
+        return ResponseEntity.ok(clienteService.update(clientePutDTO));
     }
 
 }

@@ -32,4 +32,8 @@ public class Cliente {
     @JsonFormat(pattern = "yyyy/MM/dd HH:mm")
     private LocalDateTime dataCadastro = LocalDateTime.now();
 
+    public void novaDataCadastro() {
+        dataCadastro = LocalDateTime.now();
+    }
+
 }
