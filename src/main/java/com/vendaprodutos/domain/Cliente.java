@@ -7,8 +7,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
 
 @Data
 @AllArgsConstructor
@@ -22,6 +25,7 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nomeCompleto;
+    @Pattern(regexp = "([0-9]{3}[\\.][0-9]{3}[\\.][0-9]{3}[-][0-9]{2})")
     private String cpf;
     @JsonFormat(pattern = "yyyy/MM/dd")
     private LocalDate dataNascimento;
@@ -30,10 +34,10 @@ public class Cliente {
     private String endereco;
     private String telefone;
     @JsonFormat(pattern = "yyyy/MM/dd HH:mm")
-    private LocalDateTime dataCadastro = LocalDateTime.now();
+    private LocalDateTime dataCadastro = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
 
     public void novaDataCadastro() {
-        dataCadastro = LocalDateTime.now();
+        dataCadastro = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
     }
 
 }
