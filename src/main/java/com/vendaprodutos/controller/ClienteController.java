@@ -36,7 +36,6 @@ public class ClienteController {
      */
     @PostMapping
     public ResponseEntity<Cliente> save(@RequestBody @Valid ClientePostDTO clientePostDTO) {
-        //return new ResponseEntity<>(clienteService.save(cliente), HttpStatus.CREATED);
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.save(clientePostDTO));
     }
 

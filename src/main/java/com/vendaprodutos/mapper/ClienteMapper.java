@@ -6,8 +6,6 @@ import com.vendaprodutos.domain.dto.ClientePutDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-import java.time.LocalDateTime;
-
 @Mapper(componentModel = "spring")
 public abstract class ClienteMapper {
     public static final ClienteMapper INSTANCE = Mappers.getMapper(ClienteMapper.class);

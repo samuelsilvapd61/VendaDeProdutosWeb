@@ -10,7 +10,6 @@ import java.util.List;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
-    List<Cliente> findByNomeCompleto(String nomeCompleto);
 
     List<Cliente> findByIdOrNomeCompletoOrCpfOrDataNascimentoOrGeneroOrEmailOrEnderecoOrTelefoneOrDataCadastro(
             long id,
