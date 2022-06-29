@@ -31,5 +31,5 @@ public abstract class ProdutoMapper {
 
         return produto;
     }
-    public abstract Produto toCliente(ProdutoPutDTO produtoPutDTO);
+    public abstract Produto toProduto(ProdutoPutDTO produtoPutDTO);
 }

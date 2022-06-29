@@ -4,10 +4,14 @@ import com.vendaprodutos.domain.Categoria;
 import com.vendaprodutos.domain.Cliente;
 import com.vendaprodutos.domain.Produto;
 import com.vendaprodutos.domain.dto.ClientePostDTO;
+import com.vendaprodutos.domain.dto.ClientePutDTO;
 import com.vendaprodutos.domain.dto.ProdutoPostDTO;
+import com.vendaprodutos.domain.dto.ProdutoPutDTO;
 import com.vendaprodutos.service.ProdutoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -77,5 +81,36 @@ public class ProdutoController {
 
         List<Produto> lista = produtoService.findByParameter(id, nome, descricao, preco, dataCadastro, categoria);
         return ResponseEntity.ok(lista);
+    }
+
+    /**
+     * Busca todos os produtos, mas de forma paginada
+     * É interessante usar os parâmetros "size", "page" e "sort"
+     * @param pageable
+     */
+    @GetMapping(path = "/page")
+    public ResponseEntity<Page<Produto>> listPage(Pageable pageable) {
+        return ResponseEntity.ok(produtoService.listPage(pageable));
+    }
+
+    /**
+     * Altera um produto por id
+     *
+     * @param produtoPutDTO
+     */
+    @PutMapping
+    public ResponseEntity<Produto> updateById(@RequestBody ProdutoPutDTO produtoPutDTO) {
+        return ResponseEntity.ok(produtoService.update(produtoPutDTO));
+    }
+
+    /**
+     * Apaga um produto por id
+     *
+     * @param id
+     */
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable long id) {
+        produtoService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -4,10 +4,13 @@ import com.vendaprodutos.domain.Categoria;
 import com.vendaprodutos.domain.Cliente;
 import com.vendaprodutos.domain.Produto;
 import com.vendaprodutos.domain.dto.ProdutoPostDTO;
+import com.vendaprodutos.domain.dto.ProdutoPutDTO;
 import com.vendaprodutos.mapper.ProdutoMapper;
 import com.vendaprodutos.repository.CategoriaRepository;
 import com.vendaprodutos.repository.ProdutoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -41,5 +44,22 @@ public class ProdutoService {
 
     public List<Produto> findByParameter(Long id, String nome, String descricao, Double preco, LocalDateTime dataCadastro, Categoria categoria) {
         return produtoRepository.findByIdOrNomeOrDescricaoOrPrecoOrDataCadastroOrCategoria(id, nome, descricao, preco, dataCadastro, categoria);
+    }
+
+    public Page<Produto> listPage(Pageable pageable) {
+        return produtoRepository.findAll(pageable);
+    }
+
+    public Produto update(ProdutoPutDTO produtoPutDTO) {
+        Produto savedProduto = findById(produtoPutDTO.getId());
+        Produto produto = ProdutoMapper.INSTANCE.toProduto(produtoPutDTO);
+        produto.setId(savedProduto.getId()); // Garantir que o id está correto
+        produto.setDataCadastro(savedProduto.getDataCadastro()); // Preencher a dataCadastro
+        return produtoRepository.save(produto);
+    }
+
+
+    public void delete(long id) {
+        produtoRepository.delete(findById(id));
     }
 }

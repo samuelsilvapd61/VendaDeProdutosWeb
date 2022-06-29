@@ -11,6 +11,7 @@ import java.time.LocalDate;
 
 @Data
 public class ProdutoPutDTO {
+    private Long id;
     private String nome;
     private String descricao;
     private Double preco;

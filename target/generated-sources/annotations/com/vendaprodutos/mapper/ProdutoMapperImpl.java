@@ -8,20 +8,21 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-06-28T12:49:42-0300",
+    date = "2022-06-29T13:12:27-0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.3 (Azul Systems, Inc.)"
 )
 @Component
 public class ProdutoMapperImpl extends ProdutoMapper {
 
     @Override
-    public Produto toCliente(ProdutoPutDTO produtoPutDTO) {
+    public Produto toProduto(ProdutoPutDTO produtoPutDTO) {
         if ( produtoPutDTO == null ) {
             return null;
         }
 
         ProdutoBuilder produto = Produto.builder();
 
+        produto.id( produtoPutDTO.getId() );
         produto.nome( produtoPutDTO.getNome() );
         produto.descricao( produtoPutDTO.getDescricao() );
         produto.preco( produtoPutDTO.getPreco() );
