@@ -2,37 +2,17 @@ package com.vendaprodutos.mapper;
 
 import com.vendaprodutos.domain.Cliente;
 import com.vendaprodutos.domain.Cliente.ClienteBuilder;
-import com.vendaprodutos.domain.dto.ClientePostDTO;
 import com.vendaprodutos.domain.dto.ClientePutDTO;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-06-24T11:51:43-0300",
+    date = "2022-06-27T16:54:21-0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.3 (Azul Systems, Inc.)"
 )
 @Component
 public class ClienteMapperImpl extends ClienteMapper {
-
-    @Override
-    public Cliente toCliente(ClientePostDTO clientePostDTO) {
-        if ( clientePostDTO == null ) {
-            return null;
-        }
-
-        ClienteBuilder cliente = Cliente.builder();
-
-        cliente.nomeCompleto( clientePostDTO.getNomeCompleto() );
-        cliente.cpf( clientePostDTO.getCpf() );
-        cliente.dataNascimento( clientePostDTO.getDataNascimento() );
-        cliente.genero( clientePostDTO.getGenero() );
-        cliente.email( clientePostDTO.getEmail() );
-        cliente.endereco( clientePostDTO.getEndereco() );
-        cliente.telefone( clientePostDTO.getTelefone() );
-
-        return cliente.build();
-    }
 
     @Override
     public Cliente toCliente(ClientePutDTO clientePutDTO) {

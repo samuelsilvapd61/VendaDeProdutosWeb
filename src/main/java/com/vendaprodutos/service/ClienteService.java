@@ -24,7 +24,7 @@ public class ClienteService {
 
     @Transactional
     public Cliente save(ClientePostDTO clientePostDTO) {
-        Cliente cliente = ClienteMapper.INSTANCE.toClientePost(clientePostDTO);
+        Cliente cliente = ClienteMapper.INSTANCE.toCliente(clientePostDTO);
         return clienteRepository.save(cliente);
     }
 
