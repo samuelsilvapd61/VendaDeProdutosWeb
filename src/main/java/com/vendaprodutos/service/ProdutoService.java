@@ -10,6 +10,7 @@ import com.vendaprodutos.repository.ProdutoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,5 +37,9 @@ public class ProdutoService {
             return optional.get();
         }
         throw new RuntimeException();
+    }
+
+    public List<Produto> findByParameter(Long id, String nome, String descricao, Double preco, LocalDateTime dataCadastro, Categoria categoria) {
+        return produtoRepository.findByIdOrNomeOrDescricaoOrPrecoOrDataCadastroOrCategoria(id, nome, descricao, preco, dataCadastro, categoria);
     }
 }
