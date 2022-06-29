@@ -26,10 +26,7 @@ public class Produto {
     private Double preco;
     @JsonFormat(pattern = "yyyy/MM/dd HH:mm")
     private LocalDateTime dataCadastro = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Categoria categoria;
 
-    public void novaDataCadastro() {
-        dataCadastro = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
-    }
 }
