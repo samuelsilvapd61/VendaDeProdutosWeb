@@ -1,9 +1,11 @@
 package com.vendaprodutos.controller;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.vendaprodutos.domain.Cliente;
 import com.vendaprodutos.domain.dto.ClientePostDTO;
 import com.vendaprodutos.domain.dto.ClientePutDTO;
 import com.vendaprodutos.service.ClienteService;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -14,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -34,6 +37,7 @@ public class ClienteController {
      *
      * @param clientePostDTO
      */
+    @ApiOperation(value = "Insere um novo Cliente.")
     @PostMapping
     public ResponseEntity<Cliente> save(@RequestBody @Valid ClientePostDTO clientePostDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.save(clientePostDTO));
@@ -42,6 +46,7 @@ public class ClienteController {
     /**
      * Busca todos os clientes
      */
+    @ApiOperation(value = "Busca todos os clientes.")
     @GetMapping
     public ResponseEntity<List<Cliente>> list() {
         return ResponseEntity.ok(clienteService.listAll());
@@ -52,6 +57,7 @@ public class ClienteController {
      *
      * @param id
      */
+    @ApiOperation(value = "Busca um cliente por id.")
     @GetMapping(path = "/{id}")
     public ResponseEntity<Cliente> findById(@PathVariable long id) {
         return ResponseEntity.ok(clienteService.findById(id));
@@ -70,17 +76,18 @@ public class ClienteController {
      * @param telefone
      * @param dataCadastro
      */
+    @ApiOperation(value = "Busca um cliente por parâmetros.")
     @GetMapping(path = "/find")
     public ResponseEntity<List<Cliente>> findByParameter(
             @RequestParam(required = false, defaultValue = "0") Long id,
             @RequestParam(required = false) String nomeCompleto,
-            @RequestParam(required = false) String cpf,
-            @DateTimeFormat(pattern = "yyyy/MM/dd") @RequestParam(required = false) LocalDate dataNascimento,
+            @RequestParam(required = false) @Pattern(regexp = "([0-9]{3}[\\.][0-9]{3}[\\.][0-9]{3}[-][0-9]{2})") String cpf,
+            @DateTimeFormat(pattern = "yyyy/MM/dd") @Pattern(regexp = "([0-9]{4}[/][0-1][0-9][/][0-3][0-9])") @RequestParam(required = false) LocalDate dataNascimento,
             @RequestParam(required = false) String genero,
             @RequestParam(required = false) String email,
             @RequestParam(required = false) String endereco,
             @RequestParam(required = false) String telefone,
-            @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm") @RequestParam(required = false) LocalDateTime dataCadastro) {
+            @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm") @Pattern(regexp = "([0-9]{4}[/][0-1][0-9][/][0-3][0-9][ ][0-2][0-9][:][0-5][0-9])") @RequestParam(required = false) LocalDateTime dataCadastro) {
 
         List<Cliente> lista = clienteService.findByParameter(id, nomeCompleto, cpf, dataNascimento, genero, email, endereco, telefone, dataCadastro);
         return ResponseEntity.ok(lista);
@@ -91,6 +98,8 @@ public class ClienteController {
      * É interessante usar os parâmetros "size", "page" e "sort"
      * @param pageable
      */
+    @ApiOperation(value = "Busca todos os clientes, mas de forma paginada." +
+            " É interessante usar os parâmetros \"size\", \"page\" e \"sort\"")
     @GetMapping(path = "/page")
     public ResponseEntity<Page<Cliente>> listPage(Pageable pageable) {
         return ResponseEntity.ok(clienteService.listPage(pageable));
@@ -101,6 +110,7 @@ public class ClienteController {
      *
      * @param id
      */
+    @ApiOperation(value = "Apaga um cliente por id.")
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable long id) {
         clienteService.delete(id);
@@ -112,6 +122,7 @@ public class ClienteController {
      *
      * @param clientePutDTO
      */
+    @ApiOperation(value = "Altera um cliente por id.")
     @PutMapping
     public ResponseEntity<Cliente> updateById(@RequestBody @Valid ClientePutDTO clientePutDTO) {
         return ResponseEntity.ok(clienteService.update(clientePutDTO));
