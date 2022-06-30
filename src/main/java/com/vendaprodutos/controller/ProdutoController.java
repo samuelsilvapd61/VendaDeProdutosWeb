@@ -1,13 +1,11 @@
 package com.vendaprodutos.controller;
 
 import com.vendaprodutos.domain.Categoria;
-import com.vendaprodutos.domain.Cliente;
 import com.vendaprodutos.domain.Produto;
-import com.vendaprodutos.domain.dto.ClientePostDTO;
-import com.vendaprodutos.domain.dto.ClientePutDTO;
 import com.vendaprodutos.domain.dto.ProdutoPostDTO;
 import com.vendaprodutos.domain.dto.ProdutoPutDTO;
 import com.vendaprodutos.service.ProdutoService;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -17,8 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.time.LocalDate;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -34,10 +31,11 @@ public class ProdutoController {
     private final ProdutoService produtoService;
 
     /**
-     * Insere um novo Cliente
+     * Insere um novo Produto
      *
      * @param produtoPostDTO
      */
+    @ApiOperation(value = "Insere um novo Produto.")
     @PostMapping
     public ResponseEntity<Produto> save(@RequestBody ProdutoPostDTO produtoPostDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoService.save(produtoPostDTO));
@@ -46,6 +44,7 @@ public class ProdutoController {
     /**
      * Busca todos os produtos
      */
+    @ApiOperation(value = "Busca todos os produtos.")
     @GetMapping
     public ResponseEntity<List<Produto>> list() {
         return ResponseEntity.ok(produtoService.listAll());
@@ -56,13 +55,14 @@ public class ProdutoController {
      *
      * @param id
      */
+    @ApiOperation(value = "Busca um produto por id.")
     @GetMapping(path = "/{id}")
     public ResponseEntity<Produto> findById(@PathVariable long id) {
         return ResponseEntity.ok(produtoService.findById(id));
     }
 
     /**
-     * Busca um cliente por parâmetros
+     * Busca um produto por parâmetros
      *
      * @param id
      * @param nome
@@ -70,13 +70,14 @@ public class ProdutoController {
      * @param preco
      * @param dataCadastro
      */
+    @ApiOperation(value = "Busca um produto por parâmetros.")
     @GetMapping(path = "/find")
     public ResponseEntity<List<Produto>> findByParameter(
-            @RequestParam(required = false, defaultValue = "0") Long id,
+            @RequestParam(required = false) Long id,
             @RequestParam(required = false) String nome,
             @RequestParam(required = false) String descricao,
             @RequestParam(required = false) Double preco,
-            @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm") @RequestParam(required = false) LocalDateTime dataCadastro,
+            @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm") @Pattern(regexp = "([0-9]{4}[/][0-1][0-9][/][0-3][0-9][ ][0-2][0-9][:][0-5][0-9])") @RequestParam(required = false) LocalDateTime dataCadastro,
             @RequestParam(name = "categoriaId", required = false) Categoria categoria) {
 
         List<Produto> lista = produtoService.findByParameter(id, nome, descricao, preco, dataCadastro, categoria);
@@ -88,6 +89,8 @@ public class ProdutoController {
      * É interessante usar os parâmetros "size", "page" e "sort"
      * @param pageable
      */
+    @ApiOperation(value = "Busca todos os produtos, mas de forma paginada." +
+            " É interessante usar os parâmetros \"size\", \"page\" e \"sort\"")
     @GetMapping(path = "/page")
     public ResponseEntity<Page<Produto>> listPage(Pageable pageable) {
         return ResponseEntity.ok(produtoService.listPage(pageable));
@@ -98,6 +101,7 @@ public class ProdutoController {
      *
      * @param produtoPutDTO
      */
+    @ApiOperation(value = "Altera um produto por id.")
     @PutMapping
     public ResponseEntity<Produto> updateById(@RequestBody ProdutoPutDTO produtoPutDTO) {
         return ResponseEntity.ok(produtoService.update(produtoPutDTO));
@@ -108,6 +112,7 @@ public class ProdutoController {
      *
      * @param id
      */
+    @ApiOperation(value = "Apaga um produto por id.")
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable long id) {
         produtoService.delete(id);
