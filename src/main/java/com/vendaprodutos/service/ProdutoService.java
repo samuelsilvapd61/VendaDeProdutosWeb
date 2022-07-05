@@ -1,7 +1,6 @@
 package com.vendaprodutos.service;
 
 import com.vendaprodutos.domain.Categoria;
-import com.vendaprodutos.domain.Cliente;
 import com.vendaprodutos.domain.Produto;
 import com.vendaprodutos.domain.dto.ProdutoPostDTO;
 import com.vendaprodutos.domain.dto.ProdutoPutDTO;
