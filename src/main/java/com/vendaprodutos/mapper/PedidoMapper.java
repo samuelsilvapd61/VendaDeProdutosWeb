@@ -3,6 +3,7 @@ package com.vendaprodutos.mapper;
 import com.vendaprodutos.domain.Cliente;
 import com.vendaprodutos.domain.Pedido;
 import com.vendaprodutos.domain.dto.PedidoPostDTO;
+import com.vendaprodutos.domain.dto.PedidoPutDTO;
 import com.vendaprodutos.domain.dto.ProdutoPutDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -27,5 +28,16 @@ public abstract class PedidoMapper {
         return pedido.build();
     }
 
-    public abstract Pedido toPedido(ProdutoPutDTO produtoPutDTO);
+    public Pedido toPedido(PedidoPutDTO pedidoPutDTO) {
+        if ( pedidoPutDTO == null ) {
+            return null;
+        }
+
+        Pedido.PedidoBuilder pedido = Pedido.builder();
+
+        pedido.id( pedidoPutDTO.getId() );
+        pedido.cliente( Cliente.builder().id(pedidoPutDTO.getClienteId()).build() );
+
+        return pedido.build();
+    }
 }

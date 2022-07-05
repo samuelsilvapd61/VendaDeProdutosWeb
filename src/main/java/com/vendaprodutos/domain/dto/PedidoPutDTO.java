@@ -5,5 +5,6 @@ import lombok.Data;
 
 @Data
 public class PedidoPutDTO {
+    private Long id;
     private Long clienteId;
 }

@@ -5,11 +5,14 @@ import com.vendaprodutos.domain.Cliente;
 import com.vendaprodutos.domain.Pedido;
 import com.vendaprodutos.domain.Produto;
 import com.vendaprodutos.domain.dto.PedidoPostDTO;
+import com.vendaprodutos.domain.dto.PedidoPutDTO;
 import com.vendaprodutos.domain.dto.ProdutoPostDTO;
 import com.vendaprodutos.domain.dto.ProdutoPutDTO;
 import com.vendaprodutos.service.PedidoService;
 import com.vendaprodutos.service.ProdutoService;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -82,5 +85,40 @@ public class PedidoController {
 
         List<Pedido> lista = pedidoService.findByParameter(id, dataCadastro, cliente);
         return ResponseEntity.ok(lista);
+    }
+
+    /**
+     * Busca todos os pedidos, mas de forma paginada
+     * É interessante usar os parâmetros "size", "page" e "sort"
+     * @param pageable
+     */
+    @ApiOperation(value = "Busca todos os pedidos, mas de forma paginada." +
+            " É interessante usar os parâmetros \"size\", \"page\" e \"sort\"")
+    @GetMapping(path = "/page")
+    public ResponseEntity<Page<Pedido>> listPage(Pageable pageable) {
+        return ResponseEntity.ok(pedidoService.listPage(pageable));
+    }
+
+    /**
+     * Altera um pedido por id
+     *
+     * @param pedidoPutDTO
+     */
+    @ApiOperation(value = "Altera um pedido por id.")
+    @PutMapping
+    public ResponseEntity<Pedido> updateById(@RequestBody PedidoPutDTO pedidoPutDTO) {
+        return ResponseEntity.ok(pedidoService.update(pedidoPutDTO));
+    }
+
+    /**
+     * Apaga um pedido por id
+     *
+     * @param id
+     */
+    @ApiOperation(value = "Apaga um pedido por id.")
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable long id) {
+        pedidoService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
