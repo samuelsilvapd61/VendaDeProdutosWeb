@@ -21,7 +21,7 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @JsonFormat(pattern = "yyyy/MM/dd HH:mm")
-    private LocalDateTime dataPedido = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+    private LocalDateTime dataCadastro = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
     //private Double valorTotal;
     // Lista de itens;
     @ManyToOne(fetch = FetchType.EAGER)

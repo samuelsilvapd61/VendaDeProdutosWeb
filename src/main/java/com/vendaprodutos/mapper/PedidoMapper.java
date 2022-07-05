@@ -2,9 +2,7 @@ package com.vendaprodutos.mapper;
 
 import com.vendaprodutos.domain.Cliente;
 import com.vendaprodutos.domain.Pedido;
-import com.vendaprodutos.domain.Produto;
 import com.vendaprodutos.domain.dto.PedidoPostDTO;
-import com.vendaprodutos.domain.dto.ProdutoPostDTO;
 import com.vendaprodutos.domain.dto.ProdutoPutDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -24,7 +22,7 @@ public abstract class PedidoMapper {
 
         Pedido.PedidoBuilder pedido = Pedido.builder();
         pedido.cliente( Cliente.builder().id(pedidoPostDTO.getClienteId()).build());
-        pedido.dataPedido(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
+        pedido.dataCadastro(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
 
         return pedido.build();
     }

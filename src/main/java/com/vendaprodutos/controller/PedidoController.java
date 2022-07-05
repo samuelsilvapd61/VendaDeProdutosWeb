@@ -1,6 +1,7 @@
 package com.vendaprodutos.controller;
 
 import com.vendaprodutos.domain.Categoria;
+import com.vendaprodutos.domain.Cliente;
 import com.vendaprodutos.domain.Pedido;
 import com.vendaprodutos.domain.Produto;
 import com.vendaprodutos.domain.dto.PedidoPostDTO;
@@ -50,5 +51,36 @@ public class PedidoController {
     @GetMapping
     public ResponseEntity<List<Pedido>> list() {
         return ResponseEntity.ok(pedidoService.listAll());
+    }
+
+    /**
+     * Busca um pedido por id
+     *
+     * @param id
+     */
+    @ApiOperation(value = "Busca um pedido por id.")
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Pedido> findById(@PathVariable long id) {
+        return ResponseEntity.ok(pedidoService.findById(id));
+    }
+
+    /**
+     * Busca um produto por parâmetros
+     *
+     * @param id
+     * @param dataCadastro
+     * @param cliente
+     */
+    @ApiOperation(value = "Busca um pedido por parâmetros.")
+    @GetMapping(path = "/find")
+    public ResponseEntity<List<Pedido>> findByParameter(
+            @RequestParam(required = false) Long id,
+            @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
+            @Pattern(regexp = "([0-9]{4}[/][0-1][0-9][/][0-3][0-9][ ][0-2][0-9][:][0-5][0-9])")
+            @RequestParam(required = false) LocalDateTime dataCadastro,
+            @RequestParam(name = "clienteId", required = false) Cliente cliente) {
+
+        List<Pedido> lista = pedidoService.findByParameter(id, dataCadastro, cliente);
+        return ResponseEntity.ok(lista);
     }
 }
