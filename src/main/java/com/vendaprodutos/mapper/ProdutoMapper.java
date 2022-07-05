@@ -1,5 +1,6 @@
 package com.vendaprodutos.mapper;
 
+import com.vendaprodutos.domain.Categoria;
 import com.vendaprodutos.domain.Cliente;
 import com.vendaprodutos.domain.Produto;
 import com.vendaprodutos.domain.dto.ClientePostDTO;
@@ -26,10 +27,24 @@ public abstract class ProdutoMapper {
         produto.setNome( produtoPostDTO.getNome() );
         produto.setDescricao( produtoPostDTO.getDescricao() );
         produto.setPreco( produtoPostDTO.getPreco() );
-        produto.setCategoria( produtoPostDTO.getCategoria() );
+        produto.setCategoria(Categoria.builder().id(produtoPostDTO.getCategoriaId()).build());
         produto.setDataCadastro(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
 
         return produto;
     }
-    public abstract Produto toProduto(ProdutoPutDTO produtoPutDTO);
+    public Produto toProduto(ProdutoPutDTO produtoPutDTO) {
+        if ( produtoPutDTO == null ) {
+            return null;
+        }
+
+        Produto.ProdutoBuilder produto = Produto.builder();
+
+        produto.id( produtoPutDTO.getId() );
+        produto.nome( produtoPutDTO.getNome() );
+        produto.descricao( produtoPutDTO.getDescricao() );
+        produto.preco( produtoPutDTO.getPreco() );
+        produto.categoria(Categoria.builder().id(produtoPutDTO.getCategoriaId()).build());
+
+        return produto.build();
+    }
 }
