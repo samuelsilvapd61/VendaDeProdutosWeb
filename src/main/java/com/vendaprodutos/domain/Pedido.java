@@ -10,6 +10,11 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * Domain Pedido
+ *
+ * @author Samuel Silva
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

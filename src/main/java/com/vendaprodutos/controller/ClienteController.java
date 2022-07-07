@@ -1,6 +1,5 @@
 package com.vendaprodutos.controller;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.vendaprodutos.domain.Cliente;
 import com.vendaprodutos.domain.dto.ClientePostDTO;
 import com.vendaprodutos.domain.dto.ClientePutDTO;
@@ -23,6 +22,8 @@ import java.util.List;
 
 /**
  * Classe para gerenciar rotas de clientes
+ *
+ * @author Samuel Silva
  */
 @RestController
 @Log4j2
@@ -35,7 +36,8 @@ public class ClienteController {
     /**
      * Insere um novo Cliente
      *
-     * @param clientePostDTO
+     * @param clientePostDTO Corpo PostDTO de Cliente
+     * @return Cliente
      */
     @ApiOperation(value = "Insere um novo Cliente.")
     @PostMapping
@@ -45,6 +47,8 @@ public class ClienteController {
 
     /**
      * Busca todos os clientes
+     *
+     * @return Lista de Clientes
      */
     @ApiOperation(value = "Busca todos os clientes.")
     @GetMapping
@@ -55,7 +59,8 @@ public class ClienteController {
     /**
      * Busca um cliente por id
      *
-     * @param id
+     * @param id ID do Cliente
+     * @return Cliente
      */
     @ApiOperation(value = "Busca um cliente por id.")
     @GetMapping(path = "/{id}")
@@ -66,15 +71,16 @@ public class ClienteController {
     /**
      * Busca um cliente por parâmetros
      *
-     * @param id
-     * @param nomeCompleto
-     * @param cpf
-     * @param dataNascimento
-     * @param genero
-     * @param email
-     * @param endereco
-     * @param telefone
-     * @param dataCadastro
+     * @param id ID do Cliente
+     * @param nomeCompleto Nome do Cliente
+     * @param cpf CPF do Cliente
+     * @param dataNascimento Data de nascimento do Cliente
+     * @param genero Gênero do Cliente
+     * @param email Email do Cliente
+     * @param endereco Endereço do Cliente
+     * @param telefone Telefone do Cliente
+     * @param dataCadastro Data de cadastro do Cliente
+     * @return Lista de Clientes
      */
     @ApiOperation(value = "Busca um cliente por parâmetros.")
     @GetMapping(path = "/find")
@@ -96,7 +102,9 @@ public class ClienteController {
     /**
      * Busca todos os clientes, mas de forma paginada
      * É interessante usar os parâmetros "size", "page" e "sort"
-     * @param pageable
+     *
+     * @param pageable Pageable
+     * @return Page de Cliente
      */
     @ApiOperation(value = "Busca todos os clientes, mas de forma paginada." +
             " É interessante usar os parâmetros \"size\", \"page\" e \"sort\"")
@@ -108,7 +116,8 @@ public class ClienteController {
     /**
      * Apaga um cliente por id
      *
-     * @param id
+     * @param id ID do Cliente
+     * @return VAZIO
      */
     @ApiOperation(value = "Apaga um cliente por id.")
     @DeleteMapping(path = "/{id}")
@@ -120,7 +129,8 @@ public class ClienteController {
     /**
      * Altera um cliente por id
      *
-     * @param clientePutDTO
+     * @param clientePutDTO Corpo PutDTO de Cliente
+     * @return Cliente
      */
     @ApiOperation(value = "Altera um cliente por id.")
     @PutMapping

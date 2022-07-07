@@ -6,6 +6,9 @@ import lombok.Data;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
+/**
+ * Classe PutDTO do Cliente
+ */
 @Data
 public class ClientePutDTO {
     private Long id;

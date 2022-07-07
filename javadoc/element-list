@@ -1,0 +1,8 @@
+com.vendaprodutos
+com.vendaprodutos.configurer
+com.vendaprodutos.controller
+com.vendaprodutos.domain
+com.vendaprodutos.domain.dto
+com.vendaprodutos.mapper
+com.vendaprodutos.repository
+com.vendaprodutos.service

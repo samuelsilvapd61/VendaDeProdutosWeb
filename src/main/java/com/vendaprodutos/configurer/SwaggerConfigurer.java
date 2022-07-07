@@ -16,6 +16,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.util.Arrays;
 import java.util.Collections;
 
+/**
+ * Classe de configuração de Swagger
+ */
 @Configuration
 @RequiredArgsConstructor
 @EnableSwagger2
@@ -30,6 +33,10 @@ public class SwaggerConfigurer {
     private final ResponseMessage m422 = simpleMessage(422, "Erro de validação");
     private final ResponseMessage m500 = simpleMessage(500, "Erro inesperado");
 
+    /**
+     * Docket api
+     * @return Docket
+     */
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)

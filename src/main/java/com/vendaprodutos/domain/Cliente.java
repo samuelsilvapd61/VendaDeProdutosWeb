@@ -13,6 +13,11 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 
+/**
+ * Domain Cliente
+ *
+ * @author Samuel Silva
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.vendaprodutos"},{"l":"com.vendaprodutos.configurer"},{"l":"com.vendaprodutos.controller"},{"l":"com.vendaprodutos.domain"},{"l":"com.vendaprodutos.domain.dto"},{"l":"com.vendaprodutos.mapper"},{"l":"com.vendaprodutos.repository"},{"l":"com.vendaprodutos.service"}];updateSearchResults();

@@ -28,6 +28,8 @@ import java.util.List;
 
 /**
  * Classe para gerenciar rotas de pedidos
+ *
+ * @author Samuel Silva
  */
 @RestController
 @Log4j2
@@ -39,7 +41,8 @@ public class PedidoController {
     /**
      * Insere um novo Pedido
      *
-     * @param pedidoPostDTO
+     * @param pedidoPostDTO Corpo PostDTO de Pedido
+     * @return Pedido
      */
     @ApiOperation(value = "Insere um novo Pedido.")
     @PostMapping
@@ -49,6 +52,8 @@ public class PedidoController {
 
     /**
      * Busca todos os pedidos
+     *
+     * @return Lista de Pedido
      */
     @ApiOperation(value = "Busca todos os pedidos.")
     @GetMapping
@@ -59,7 +64,8 @@ public class PedidoController {
     /**
      * Busca um pedido por id
      *
-     * @param id
+     * @param id ID do Pedido
+     * @return Pedido
      */
     @ApiOperation(value = "Busca um pedido por id.")
     @GetMapping(path = "/{id}")
@@ -70,9 +76,10 @@ public class PedidoController {
     /**
      * Busca um produto por parâmetros
      *
-     * @param id
-     * @param dataCadastro
-     * @param cliente
+     * @param id ID do Pedido
+     * @param dataCadastro Data de cadastro do Pedido
+     * @param cliente ID do Cliente do Pedido
+     * @return Lista de Pedido
      */
     @ApiOperation(value = "Busca um pedido por parâmetros.")
     @GetMapping(path = "/find")
@@ -90,7 +97,9 @@ public class PedidoController {
     /**
      * Busca todos os pedidos, mas de forma paginada
      * É interessante usar os parâmetros "size", "page" e "sort"
-     * @param pageable
+     *
+     * @param pageable Pageable
+     * @return Page de Pedido
      */
     @ApiOperation(value = "Busca todos os pedidos, mas de forma paginada." +
             " É interessante usar os parâmetros \"size\", \"page\" e \"sort\"")
@@ -102,7 +111,8 @@ public class PedidoController {
     /**
      * Altera um pedido por id
      *
-     * @param pedidoPutDTO
+     * @param pedidoPutDTO Corpo PutDTO de Pedido
+     * @return Pedido
      */
     @ApiOperation(value = "Altera um pedido por id.")
     @PutMapping
@@ -113,7 +123,8 @@ public class PedidoController {
     /**
      * Apaga um pedido por id
      *
-     * @param id
+     * @param id ID do Pedido
+     * @return VAZIO
      */
     @ApiOperation(value = "Apaga um pedido por id.")
     @DeleteMapping(path = "/{id}")
