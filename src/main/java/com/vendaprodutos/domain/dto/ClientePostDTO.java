@@ -6,6 +6,9 @@ import lombok.Data;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
+/**
+ * Classe PostDTO do Cliente
+ */
 @Data
 public class ClientePostDTO {
     private String nomeCompleto;

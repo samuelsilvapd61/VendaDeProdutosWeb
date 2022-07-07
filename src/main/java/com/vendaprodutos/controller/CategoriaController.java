@@ -17,6 +17,8 @@ import java.util.List;
 
 /**
  * Classe para gerenciar rotas de categorias
+ *
+ * @author Samuel Silva
  */
 @RestController
 @Log4j2
@@ -29,7 +31,8 @@ public class CategoriaController {
     /**
      * Insere uma nova Categoria
      *
-     * @param categoriaPostDTO
+     * @param categoriaPostDTO Corpo PostDTO de Categoria
+     * @return Categoria
      */
     @ApiOperation(value = "Insere uma nova Categoria.")
     @PostMapping
@@ -39,6 +42,8 @@ public class CategoriaController {
 
     /**
      * Busca todos as categorias
+     *
+     * @return Lista de Categoria
      */
     @ApiOperation(value = "Busca todos as categorias.")
     @GetMapping
@@ -49,7 +54,8 @@ public class CategoriaController {
     /**
      * Busca uma categoria por id
      *
-     * @param id
+     * @param id ID da categoria
+     * @return Categoria
      */
     @ApiOperation(value = "Busca uma categoria por id.")
     @GetMapping(path = "/{id}")
@@ -60,9 +66,9 @@ public class CategoriaController {
     /**
      * Busca uma categoria por parâmetros
      *
-     * @param id
-     * @param nome
-
+     * @param id ID da categoria
+     * @param nome Nome da Categoria
+     * @return Lista de Categoria
      */
     @ApiOperation(value = "Busca uma categoria por parâmetros.")
     @GetMapping(path = "/find")
@@ -77,7 +83,9 @@ public class CategoriaController {
     /**
      * Busca todas as categorias, mas de forma paginada
      * É interessante usar os parâmetros "size", "page" e "sort"
-     * @param pageable
+     *
+     * @param pageable Pageable
+     * @return Page de Categoria
      */
     @ApiOperation(value = "Busca todas as categorias, mas de forma paginada." +
             " É interessante usar os parâmetros \"size\", \"page\" e \"sort.")
@@ -89,7 +97,8 @@ public class CategoriaController {
     /**
      * Altera uma categoria por id
      *
-     * @param categoriaPutDTO
+     * @param categoriaPutDTO Corpo PutDTO de Categoria
+     * @return Lista de Categoria
      */
     @ApiOperation(value = "Altera uma categoria por id.")
     @PutMapping
@@ -100,7 +109,8 @@ public class CategoriaController {
     /**
      * Apaga uma categoria por id
      *
-     * @param id
+     * @param id ID da Categoria
+     * @return VAZIO
      */
     @ApiOperation(value = "Apaga uma categoria por id.")
     @DeleteMapping(path = "/{id}")

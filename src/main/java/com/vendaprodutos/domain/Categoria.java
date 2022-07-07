@@ -7,6 +7,11 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+/**
+ * Domain Categoria
+ *
+ * @author Samuel Silva
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

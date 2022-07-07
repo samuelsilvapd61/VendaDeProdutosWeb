@@ -21,6 +21,8 @@ import java.util.List;
 
 /**
  * Classe para gerenciar rotas de produtos
+ *
+ * @author Samuel Silva
  */
 @RestController
 @Log4j2
@@ -33,7 +35,8 @@ public class ProdutoController {
     /**
      * Insere um novo Produto
      *
-     * @param produtoPostDTO
+     * @param produtoPostDTO Corpo PostDTO de Produto
+     * @return Produto
      */
     @ApiOperation(value = "Insere um novo Produto.")
     @PostMapping
@@ -43,6 +46,8 @@ public class ProdutoController {
 
     /**
      * Busca todos os produtos
+     *
+     * @return Lista de Produto
      */
     @ApiOperation(value = "Busca todos os produtos.")
     @GetMapping
@@ -53,7 +58,8 @@ public class ProdutoController {
     /**
      * Busca um produto por id
      *
-     * @param id
+     * @param id ID do Produto
+     * @return Produto
      */
     @ApiOperation(value = "Busca um produto por id.")
     @GetMapping(path = "/{id}")
@@ -64,11 +70,13 @@ public class ProdutoController {
     /**
      * Busca um produto por parâmetros
      *
-     * @param id
-     * @param nome
-     * @param descricao
-     * @param preco
-     * @param dataCadastro
+     * @param id ID do Produto
+     * @param nome Nome do Produto
+     * @param descricao Descrição do Produto
+     * @param preco Preço do Produto
+     * @param dataCadastro Data de Cadastro do Produto
+     * @param categoria ID de Categoria de Produto
+     * @return Lista de Produto
      */
     @ApiOperation(value = "Busca um produto por parâmetros.")
     @GetMapping(path = "/find")
@@ -77,7 +85,9 @@ public class ProdutoController {
             @RequestParam(required = false) String nome,
             @RequestParam(required = false) String descricao,
             @RequestParam(required = false) Double preco,
-            @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm") @Pattern(regexp = "([0-9]{4}[/][0-1][0-9][/][0-3][0-9][ ][0-2][0-9][:][0-5][0-9])") @RequestParam(required = false) LocalDateTime dataCadastro,
+            @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
+            @Pattern(regexp = "([0-9]{4}[/][0-1][0-9][/][0-3][0-9][ ][0-2][0-9][:][0-5][0-9])")
+            @RequestParam(required = false) LocalDateTime dataCadastro,
             @RequestParam(name = "categoriaId", required = false) Categoria categoria) {
 
         List<Produto> lista = produtoService.findByParameter(id, nome, descricao, preco, dataCadastro, categoria);
@@ -87,7 +97,9 @@ public class ProdutoController {
     /**
      * Busca todos os produtos, mas de forma paginada
      * É interessante usar os parâmetros "size", "page" e "sort"
-     * @param pageable
+     *
+     * @param pageable Pageable
+     * @return Page de Produto
      */
     @ApiOperation(value = "Busca todos os produtos, mas de forma paginada." +
             " É interessante usar os parâmetros \"size\", \"page\" e \"sort\"")
@@ -99,7 +111,8 @@ public class ProdutoController {
     /**
      * Altera um produto por id
      *
-     * @param produtoPutDTO
+     * @param produtoPutDTO Corpo PutDTO de Produto
+     * @return Produto
      */
     @ApiOperation(value = "Altera um produto por id.")
     @PutMapping
@@ -110,7 +123,8 @@ public class ProdutoController {
     /**
      * Apaga um produto por id
      *
-     * @param id
+     * @param id ID do Produto
+     * @return VAZIO
      */
     @ApiOperation(value = "Apaga um produto por id.")
     @DeleteMapping(path = "/{id}")
