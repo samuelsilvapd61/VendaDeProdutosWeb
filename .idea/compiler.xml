@@ -18,11 +18,13 @@
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.4.2.Final/mapstruct-1.4.2.Final.jar" />
         </processorPath>
         <module name="vendaprodutos" />
+        <module name="VendaDeProdutosWeb" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="VendaDeProdutosWeb" options="-parameters" />
       <module name="vendaprodutos" options="-parameters" />
     </option>
   </component>
