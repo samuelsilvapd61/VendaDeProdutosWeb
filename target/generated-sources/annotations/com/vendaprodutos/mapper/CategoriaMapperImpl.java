@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-07-11T13:50:41-0300",
-    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.3 (Azul Systems, Inc.)"
+    date = "2022-07-12T10:19:44-0300",
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 18.0.1 (Azul Systems, Inc.)"
 )
 @Component
 public class CategoriaMapperImpl extends CategoriaMapper {

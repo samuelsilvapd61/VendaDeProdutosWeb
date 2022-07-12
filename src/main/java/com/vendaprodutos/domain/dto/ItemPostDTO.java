@@ -7,6 +7,7 @@ import lombok.Data;
  */
 @Data
 public class ItemPostDTO {
+    private Integer quantidade;
     private Long pedidoId;
     private Long produtoId;
 }
