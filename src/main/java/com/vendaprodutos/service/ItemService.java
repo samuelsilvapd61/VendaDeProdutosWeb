@@ -4,9 +4,12 @@ import com.vendaprodutos.domain.Item;
 import com.vendaprodutos.domain.Pedido;
 import com.vendaprodutos.domain.Produto;
 import com.vendaprodutos.domain.dto.ItemPostDTO;
+import com.vendaprodutos.domain.dto.ItemPutDTO;
 import com.vendaprodutos.mapper.ItemMapper;
 import com.vendaprodutos.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -61,11 +64,51 @@ public class ItemService {
         return itemRepository.findByIdOrQuantidadeOrProdutoOrPedido(id, quantidade, produto, pedido);
     }
 
+    /**
+     * Busca um Item por ID no banco de dados
+     *
+     * @param id ID de Item
+     * @return Item
+     */
     public Item findById(long id) {
         Optional<Item> optional = itemRepository.findById(id);
         if (optional.isPresent()) {
             return optional.get();
         }
         throw new RuntimeException();
+    }
+
+    /**
+     * Busca todos os itens, mas de forma paginada
+     *
+     * @param pageable Pageable
+     * @return Page de Pedido
+     */
+    public Page<Item> listPage(Pageable pageable) {
+        return itemRepository.findAll(pageable);
+    }
+
+    /**
+     * Altera um Item por id no banco de dados
+     *
+     * @param itemPutDTO Corpo PutDTO de Item
+     * @return Item
+     */
+    public Item update(ItemPutDTO itemPutDTO) {
+        findById(itemPutDTO.getId()); // Verficar se Id de Item existe
+        pedidoService.findById(itemPutDTO.getPedidoId()); // Verficar se Id de Pedido existe
+        Produto produto = produtoService.findById(itemPutDTO.getProdutoId()); // Verficar se Id de Produto existe
+        Item item = ItemMapper.INSTANCE.toItem(itemPutDTO);
+        item.setPrecoUnitario(produto.getPreco());
+        return itemRepository.save(item);
+    }
+
+    /**
+     * Apaga um Item por id no banco de dados
+     *
+     * @param id ID do Item
+     */
+    public void delete(long id) {
+        itemRepository.delete(findById(id));
     }
 }

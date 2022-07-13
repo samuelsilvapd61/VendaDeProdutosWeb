@@ -4,10 +4,14 @@ import com.vendaprodutos.domain.Item;
 import com.vendaprodutos.domain.Pedido;
 import com.vendaprodutos.domain.Produto;
 import com.vendaprodutos.domain.dto.ItemPostDTO;
+import com.vendaprodutos.domain.dto.ItemPutDTO;
+import com.vendaprodutos.domain.dto.PedidoPutDTO;
 import com.vendaprodutos.service.ItemService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -81,5 +85,44 @@ public class ItemController {
 
         List<Item> lista = itemService.findByParameter(id, quantidade, produto, pedido);
         return ResponseEntity.ok(lista);
+    }
+
+    /**
+     * Busca todos os itens, mas de forma paginada
+     * É interessante usar os parâmetros "size", "page" e "sort"
+     *
+     * @param pageable Pageable
+     * @return Page de Pedido
+     */
+    @ApiOperation(value = "Busca todos os itens, mas de forma paginada." +
+            " É interessante usar os parâmetros \"size\", \"page\" e \"sort\"")
+    @GetMapping(path = "/page")
+    public ResponseEntity<Page<Item>> listPage(Pageable pageable) {
+        return ResponseEntity.ok(itemService.listPage(pageable));
+    }
+
+    /**
+     * Altera um Item por id
+     *
+     * @param itemPutDTO Corpo PutDTO de Item
+     * @return Item
+     */
+    @ApiOperation(value = "Altera um Item por id.")
+    @PutMapping
+    public ResponseEntity<Item> updateById(@RequestBody ItemPutDTO itemPutDTO) {
+        return ResponseEntity.ok(itemService.update(itemPutDTO));
+    }
+
+    /**
+     * Apaga um Item por id
+     *
+     * @param id ID do Item
+     * @return VAZIO
+     */
+    @ApiOperation(value = "Apaga um Item por id.")
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable long id) {
+        itemService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
