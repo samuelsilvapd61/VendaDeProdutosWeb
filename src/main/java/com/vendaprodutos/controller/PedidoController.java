@@ -109,7 +109,7 @@ public class PedidoController {
     }
 
     /**
-     * Altera um pedido por id
+     * Altera um Pedido por id
      *
      * @param pedidoPutDTO Corpo PutDTO de Pedido
      * @return Pedido
