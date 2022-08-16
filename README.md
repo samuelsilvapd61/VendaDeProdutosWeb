@@ -2,7 +2,7 @@
  Projeto SpringWeb JPA-Hibernate MySQL
 
 Esse projeto visa possibilitar a venda de produtos diversos.</br>
-Serão usados SpringWeb, JPA-Hibernate e MySQL.</br>
+Ferramentas utilizadas: Java, Spring, JPA-Hibernate, Docker Desktop, MySQL, Workbench, Postman, JavaDoc, Swagger 2.</br>
 As entidades serão Cliente, Produto, Categoria, Pedido e ItemPedido.</br>
 O relacionamento entre as entidades está demonstrado no diagrama.
 
